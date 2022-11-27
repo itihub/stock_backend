@@ -27,4 +27,10 @@ public class WebController {
         model.addAttribute("stockPrices", stockPriceService.getPrice(TEST_USER_EMAIL));
         return "index";
     }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
 }
