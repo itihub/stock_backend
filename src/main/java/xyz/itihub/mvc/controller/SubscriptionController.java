@@ -1,9 +1,5 @@
 package xyz.itihub.mvc.controller;
 
-import com.viso.mvc.model.StockSubscription;
-import com.viso.mvc.model.StockSymbol;
-import com.viso.mvc.service.SubscriptionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +12,6 @@ import xyz.itihub.mvc.service.SubscriptionService;
 
 import java.util.List;
 
-import static com.viso.mvc.Constants.TEST_USER_EMAIL;
 import static xyz.itihub.mvc.Constants.TEST_USER_EMAIL;
 
 @Controller

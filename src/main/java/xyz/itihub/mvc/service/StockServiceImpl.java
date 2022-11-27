@@ -1,9 +1,9 @@
 package xyz.itihub.mvc.service;
 
-import com.viso.jpa.dao.StockDao;
-import com.viso.mvc.model.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import xyz.itihub.jpa.dao.StockDao;
+import xyz.itihub.mvc.model.Stock;
 
 import java.util.List;
 import java.util.stream.Collectors;
