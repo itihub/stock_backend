@@ -19,6 +19,6 @@ public class User {
     private Integer age;
 
     @NotNull
-    @Past
+    @Past // 要求过去的时间点
     private Date birthday;
 }

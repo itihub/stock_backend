@@ -19,11 +19,30 @@ import java.util.Map;
 @RequestMapping("/api")
 public class ApiController {
 
+    private final NotificationService notificationService;
+
+    public ApiController(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
+
+    /**
+     * 参数校验错误处理方式一
+     * 抛出异常由全局异常处理进行捕获
+     * @param user
+     * @return
+     */
     @PostMapping("/validate/user/v1")
     public Object validateUserV1(@Valid @RequestBody User user) {
         return "cool";
     }
 
+    /**
+     * 参数校验错误处理方式二
+     * 由控制器来接受处理 BindingResult
+     * @param user
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("/validate/user/v2")
     public Object validateUserV2(@Valid @RequestBody User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -31,6 +50,17 @@ public class ApiController {
         } else {
             return "cool";
         }
+    }
+
+    /**
+     * 参数校验之调用方法进行参数校验
+     * @param user
+     * @return
+     */
+    @PostMapping("/validate/user/v3")
+    public Object validateUserV3(@RequestBody User user) {
+        notificationService.sendEmail(user.getEmail());
+        return "cool";
     }
 
     @PostMapping("/price")
