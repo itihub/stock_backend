@@ -1,0 +1,42 @@
+package xyz.itihub.mvc.security.handler;
+
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * 自定义失败处理器
+ */
+@Slf4j
+public class CustomFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+
+    @Getter
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+        logger.info("Record unsuccessful login attempt");
+        String targetUrl;
+        if (exception instanceof BadCredentialsException) {
+            targetUrl = "/login?error=" + exception.getMessage();
+        } else {
+            targetUrl = "/login?error=" + true;
+        }
+
+        if (response.isCommitted()) {
+            log.info("Internal problem in redirection");
+            return;
+        }
+
+        getRedirectStrategy().sendRedirect(request, response, targetUrl);
+    }
+}
